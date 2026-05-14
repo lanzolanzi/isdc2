@@ -19,10 +19,11 @@ export default function App() {
 
   useEffect(() => {
     if (isScanning && scanProgress < 100) {
-      const startTime = performance.now();
+      let startTime: number | null = null;
       const duration = 12000; // 12 seconds to fully form
 
       const animate = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
         const elapsed = currentTime - startTime;
         let nextProgress = (elapsed / duration) * 100;
         
@@ -31,7 +32,7 @@ export default function App() {
            setIsScanning(false);
         }
 
-        const pointsToShow = Math.floor((nextProgress / 100) * totalPoints);
+        const pointsToShow = Math.max(0, Math.floor((nextProgress / 100) * totalPoints));
         setVisiblePoints(allPoints.slice(0, pointsToShow));
         setScanProgress(nextProgress);
 
