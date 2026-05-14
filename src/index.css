@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+body, html, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #050505;
+  color: #d1d1d1;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #000;
+}
+
+/* Dark mode map styles */
+.dark-map-tiles {
+    filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+/* 
+  To avoid lag from hundreds of individual SVG filters, 
+  we apply the drop-shadow filter to the overall SVG pane managed by Leaflet. 
+*/
+.leaflet-overlay-pane svg {
+  filter: drop-shadow(0 0 4px #ff3b3b) drop-shadow(0 0 10px #ff0000);
+}
+
+/* Individual dots just animate smoothly without expensive filters */
+.coral-dot {
+  opacity: 0;
+  animation: fadeInDot 0.8s ease-out forwards;
+}
+
+@keyframes fadeInDot {
+  0% { opacity: 0; }
+  100% { opacity: 0.95; }
+}
